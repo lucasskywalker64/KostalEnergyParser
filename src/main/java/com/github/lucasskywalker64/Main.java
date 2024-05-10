@@ -1,6 +1,8 @@
 package com.github.lucasskywalker64;
 
 import clients.DsmFileStationClient;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +36,10 @@ public class Main {
    * @param args not used.
    */
   public static void main(String[] args) {
-    try {
-      properties.load(Main.class.getResourceAsStream("/env.properties"));
+    try (FileInputStream stream = new FileInputStream(new File(
+        Main.class.getProtectionDomain().getCodeSource().getLocation().getPath())
+        .getParentFile().getAbsolutePath() + "/env.properties")) {
+      properties.load(stream);
       DsmAuth auth = DsmAuth.fromProperties(properties);
       KostalData kostalData = new KostalData(properties);
 
