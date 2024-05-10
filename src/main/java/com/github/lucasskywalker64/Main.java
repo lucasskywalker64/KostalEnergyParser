@@ -67,7 +67,7 @@ public class Main {
             boolean uploadSuccess = false;
             int maxRetries = 3;
             while (!uploadSuccess && maxRetries > 0) {
-              uploadSuccess = fileStationClient.upload("/Kostal",
+              uploadSuccess = fileStationClient.upload(properties.getProperty("uploadPath"),
                   sheet.getFileLocation()).call().isSuccess();
               maxRetries--;
             }
